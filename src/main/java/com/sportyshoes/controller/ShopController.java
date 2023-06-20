@@ -1,0 +1,56 @@
+package com.sportyshoes.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.sportyshoes.repository.ProductRepository;
+import com.sportyshoes.service.ProductService;
+
+@Controller
+public class ShopController {
+
+	@Autowired
+	ProductService productService;
+
+	@Autowired
+	ProductRepository productRepository;
+
+	@GetMapping("/shop")
+	public String shop(Model model) {
+
+		model.addAttribute("products", productService.getAllProducts());
+		return "shop";
+	}
+
+	@GetMapping({ "/shop/Gender/{gender}", "/shop/Kids/{gender}" })
+	public String shopByMen(@PathVariable String gender, Model model) {
+
+		model.addAttribute("products", productRepository.findAllProductsByTargetGroup(gender));
+		return "shop";
+	}
+
+	@GetMapping("/shop/brand/{brandName}")
+	public String shopByBrand(@PathVariable String brandName, Model model) {
+
+		model.addAttribute("products", productRepository.findAllProductsByBrand(brandName));
+		return "shop";
+	}
+
+	@GetMapping("/shop/style/{styleVal}")
+	public String shopByStyle(@PathVariable String styleVal, Model model) {
+		model.addAttribute("products", productRepository.findAllProductsByStyle(styleVal));
+		return "shop";
+	}
+
+	@GetMapping("/shop/viewProduct/{productId}")
+	public String viewProduct(@PathVariable Long productId, Model model) {
+		System.out.println("## View Product ->ProductId " + productId);
+
+		model.addAttribute("product", productService.getProductById(productId));
+		return "viewProduct";
+	}
+
+}

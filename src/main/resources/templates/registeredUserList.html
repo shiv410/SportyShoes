@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User list</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<div th:replace="fragments/adminheader :: header"></div>
+
+	<div class="container-fluid">
+	<h4>Registered User List</h4>
+		<input class="form-control" id="myInput" type="text"
+			placeholder="Search any value..">
+			
+		<br>	
+			
+		<table class="table table-secondary table-bordered table-striped"
+			border="1" style="text-align: center;">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Email</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Country</th>
+					<th scope="col">Gender</th>
+					<th scope="col">Date Of Birth</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${userList}" >
+					<td th:text="${user.emailId}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td th:text="${user.country}"></td>
+					<td th:text="${user.gender}"></td>
+					<td th:text="${user.dateOfBirth}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
